@@ -7,19 +7,11 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var { options } = require('./models/connection');
 
-/*
-var options = {
-  host: '127.0.0.1',
-  port: 3306,
-  user: 'root',
-  password: '',
-  database: 'db.course_node',
-}
-*/
 var sessionStore =  new MySQLStore(options);
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login.route');
+var registerRouter = require('./routes/register.route');
 var dashboardRouter = require('./routes/dashboard.route');
 
 var app = express();
@@ -43,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 app.use('/dashboard', dashboardRouter);
 
 // catch 404 and forward to error handler
